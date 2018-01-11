@@ -1,0 +1,527 @@
+﻿<html>
+<head>
+<title>Your Website Title</title>
+<!-- You can use open graph tags to customize link previews.
+Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+<meta property="og:url"           content="http://www.your-domain.com/your-page.html" />
+<meta property="og:type"          content="website" />
+<meta property="og:title"         content="Your Website Title" />
+<meta property="og:description"   content="Your description" />
+<meta property="og:image"         content="http://www.your-domain.com/path/image.jpg" />
+<script type="text/javascript" src="jquery-3.1.1.js?t="+new Date()></script>
+<script src="vue.min.js"></script>
+<script type="text/javascript" src="jquery.jsonp.js"></script>
+<script src="https://static.runoob.com/assets/react/react-0.14.7/build/react.min.js"></script>
+    <script src="https://static.runoob.com/assets/react/react-0.14.7/build/react-dom.min.js"></script>
+    <script src="https://static.runoob.com/assets/react/browser.min.js"></script>
+	
+	<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script> 
+	<script>
+		document.write('IP地址:' + returnCitySN["cip"] + ', CID:' + returnCitySN["cid"] + ', 地区:' + returnCitySN["cname"]);
+	</script>
+<script type="text/javascript">	
+	document.addEventListener("error", function (e) {
+				var elem = e.target;
+				if (elem.tagName.toLowerCase() === 'img') {
+					console.log(123444)
+				}
+			}, true);
+	var cookieUtil = {
+		get:function(name){
+			var cookieName = encodeURIComponent(name) + "=",
+				cookieStart = document.cookie.indexOf(cookieName),
+				cookieVal = null;
+				if(cookieStart > -1){
+					var cookieEnd = document.cookie.indexOf(";",cookieStart);
+					if(cookieEnd == -1){
+						cookieEnd = document.cookie.length;
+					}
+					cookieVal = encodeURIComponent(document.cookie.substring(cookieStart + cookieName.length,cookieEnd));
+				}
+			return cookieVal;
+		},
+		set: function(name,value,expires,path,domain,secure){
+			var cookieText = encodeURIComponent(name)+"="+encodeURIComponent(value);
+			if(expires instanceof Date){
+				cookieText += "; expires=" + expires.toGMTString();
+			}
+			if(path){
+				cookie += "; path="+path;
+			}
+			if(domain){
+				cookieText += "; domain="+domain;
+			}
+			if(secure){
+				cookieText += "; secure";
+			}
+			document.cookie = cookieText;
+		},
+		unset:function(name,path,domain,secure){
+			this.set(name,"",new Date(0),path,domain,secure);
+		}
+	}
+	function delHtmlTag(str)
+	{
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+		
+	$.ajax({
+		//url: "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=a&callback=?",
+		//url: "https://www.googleapis.com/customsearch/v1?q=apple",
+		//url: 'http://www.runoob.com/try/ajax/jsonp.php?jsoncallback=callback',
+		url: "http://suggestion.baidu.com/s?wd=apple&cb=callback&callback=?",//  good
+		//url: 'http://localhost:9999/helloworld/sayHello?pa=12',
+		type: 'post',
+		dataType: 'json',
+		jsonp: 'callback',
+		jsonpCallback: 'callback',
+		crossDomain: true,
+		timeout: 30000,
+		headers: {},
+		beforeSend: function(request) {
+			request.setRequestHeader("Access-Control-Allow-Origin", "*");
+		},
+		success: function(result) {
+			//var suggestion = result.s;
+			console.log(result)
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			
+		},
+		complete: function(jqXHR, status) {
+			
+		}
+	});
+	function a(){
+			this.b = function(){
+				console.log(c())
+			}
+			function c(){
+				return "hello word";
+			}
+		}
+		
+		var o = {
+			fn:function(){
+				console.log(123)
+			}
+		};
+		
+		var abc = function(){}
+		abc.prototype.someFn = function(){
+			console.log("someFn")
+		}
+	$(document).ready(function(){			
+		
+		aa = new a();
+		var promise = new Promise(function(resolve,reject){
+			console.log("start")
+			if(Math.random()*10 > 5){
+				console.log("ok")
+				resolve("resolve!!!");
+			}
+			else{
+				console.log("...")
+				reject("bad");
+			}
+		})
+		
+		promise.then(function(msg){
+			console.log(msg)
+		},function(msg){
+			console.log(msg+"*-*-*")
+		})
+			
+		
+		/*function isLeap(year) {
+	  		return year % 4 == 0 ? (year % 100 != 0 ? 1 : (year % 400 == 0 ? 1 : 0)) : 0;
+	  	}
+		var i, k,
+		today = new Date(),                 //获取当前日期
+		y = today.getFullYear(),              //获取日期中的年份
+		m = today.getMonth(),                //获取日期中的月份(需要注意的是：月份是从0开始计算，获取的值比正常月份的值少1)
+		d = today.getDate(),                //获取日期中的日(方便在建立日期表格时高亮显示当天)
+		firstday = new Date(y, m, 1),            //获取当月的第一天
+		dayOfWeek = firstday.getDay(),           //判断第一天是星期几(返回[0-6]中的一个，0代表星期天，1代表星期一，以此类推)
+		days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31),         //创建月份数组
+		str_nums = Math.ceil((dayOfWeek + days_per_month[m]) / 7);                        //确定日期表格所需的行数
+		document.write("<table id='curMonth' cellspacing='0'><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>"); //打印表格第一行(显示星期)
+		for (i = 0; i < str_nums; i += 1) {         //二维数组创建日期表格
+		document.write('<tr>');
+		for (k = 0; k < 7; k++) {
+		 var idx = 7 * i + k;                //为每个表格创建索引,从0开始
+		 var date = idx - dayOfWeek + 1;          //将当月的1号与星期进行匹配
+		 (date <= 0 || date > days_per_month[m]) ? date = ' ': date = idx - dayOfWeek + 1;  //索引小于等于0或者大于月份最大值就用空表格代替
+		 date == d ? document.write('<td class="today">' + date + '</td>') : document.write('<td>' + date + '</td>');  //高亮显示当天
+		}
+		document.write('</tr>');
+		}
+		document.write('</table>');
+		
+		m2 = m+1;
+		if(m == 11){
+			y = y+1;
+			m2 = 0;
+		}
+		firstday2 = new Date(y, m2, 1),            //获取当月的第一天
+		dayOfWeek2 = firstday2.getDay(),           //判断第一天是星期几(返回[0-6]中的一个，0代表星期天，1代表星期一，以此类推)
+		days_per_month = new Array(31, 28 + isLeap(y), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31),         //创建月份数组
+		str_nums2 = Math.ceil((dayOfWeek2 + days_per_month[m2]) / 7);                        //确定日期表格所需的行数
+		document.write("<table id='nextMonth' cellspacing='0'><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>"); //打印表格第一行(显示星期)
+		for (i = 0; i < str_nums2; i += 1) {         //二维数组创建日期表格
+		document.write('<tr>');
+		for (k = 0; k < 7; k++) {
+		 var idx = 7 * i + k;                //为每个表格创建索引,从0开始
+		 var date = idx - dayOfWeek2 + 1;          //将当月的1号与星期进行匹配
+		 (date <= 0 || date > days_per_month[m2]) ? date = ' ': date = idx - dayOfWeek2 + 1;  //索引小于等于0或者大于月份最大值就用空表格代替
+		 date == d ? document.write('<td class="today">' + date + '</td>') : document.write('<td>' + date + '</td>');  //高亮显示当天
+		}
+		document.write('</tr>');
+		}
+		document.write('</table>');
+		var wait5000 =  new Promise(function(al, reject) {
+		  setTimeout(console.log(13123), 5000);		 
+		}).then(function(a) {
+		  console.log('Yay!');
+		},function(b){
+			console.log(b||"err")
+		});	
+		var foo = {
+		bar : 1,
+		eventBind: function(){
+			$('span').on('click',function(event,a,b,c) {
+				
+				console.log(this)
+				console.log(this.bar);      //1
+			}.bind(this));
+		}
+	}
+	foo.eventBind();*/
+	})
+
+	
+	$("#baidu").on("touchstart",function(){
+		$(this).css("color","red");
+	})
+
+	function addURLParam(url, name, value){
+		url += (url.indexOf("?")==-1?"?":"&");
+		url += encodeURIComponent(name) + "="+ encodeURIComponent(value);
+		return url;
+	}
+	
+	function trim(str,type){
+		switch(type){
+			case 1:return str.replace(/\s+/g,"");//all
+			case 2:return str.replace(/(^\s*)|(\s*$)/g,"");//start&end
+			case 3:return str.replace(/(^\s*)/g,"");//start
+			case 4:return str.replace(/(\s*$)/g,"");//end
+			default:return str.replace(/(^\s*)|(\s*$)/g,"");
+		}
+	}
+	
+	function checkType(str,type){
+		switch(type){
+			case 'email':
+				return /^[\w-]+(\.[\w-])*@[\w-]+(\.[\w-]+)+$/.test(str);
+			case 'phone':
+				return /^1[3|4|5|7|8][0-9]{9}$/.test(str);
+			case 'tel':
+				return /^(0\d{2,3}-\d{7,8})(-\d{1,4})?$/.test(str);
+			case 'number':
+				return /^[0-9]$/.test(str);
+			case 'english':
+				return /^[a-zA-Z]+$/.test(str);
+			case 'chinese':
+				return /^[\u4E00-\u9FA5]+$/.test(str);
+			case 'lower':
+				return /^[a-z]+$/.test(str);
+			case 'upper':
+				return /^[A-Z]+$/.test(str);
+			default:
+				return true;
+		}
+	}
+	
+	function randomNumber(count){
+		return Math.random().toString(count).substring(2);
+	}
+	
+	function removeRepeatArr(arr){
+		return Array.from(new Set(arr));
+	}
+	
+	function maxArr(arr){
+		return Math.max.apply(null,arr);
+	}
+	function minArr(arr){
+		return Math.min.apply(null,arr);
+	}
+	function getEleCount(obj,ele){
+		var num = 0;
+		for(var a = 0;a < obj.length;a++){
+			if(ele == obj[i]){
+				num++;
+			}
+		}
+		return num;
+	}
+	
+</script>
+<script>
+window.onload = function(){
+		var drawing = document.getElementById("drawing");
+		var ctx = drawing.getContext("2d");
+		var clock = {
+			innerRad: 200,
+			outerRad: 220,
+			center: [230, 230],
+			setClock: function(){
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.arc(clock.center[0],clock.center[1],clock.innerRad,0,2*Math.PI,false);
+				ctx.stroke();
+				ctx.closePath();
+				ctx.lineWidth = 18;
+				ctx.beginPath();
+				ctx.arc(clock.center[0],clock.center[1],clock.outerRad,0,2*Math.PI,false);
+				ctx.stroke();
+				ctx.closePath();
+				ctx.save();
+			},
+			setNumber: function(){
+				ctx.font = "bold 28px Sans-Serif";
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				var pos = [];
+				pos[0] = clock.center[0];
+				pos[1] = clock.center[1] - clock.innerRad + 16; 
+				for(var i = 1; i < 13; i++){
+					pos = countNexPos(pos, 30);
+					ctx.fillText(i, pos[0], pos[1]);
+				}
+			}
+		};
+
+		function Hand(length, lineWidth){
+			this.length = length;
+			this.lineWidth = lineWidth;
+		}
+		Hand.prototype.setOrigin = function(){
+			this.curPos = [];
+			this.curPos[0] = clock.center[0];
+			this.curPos[1] = clock.center[1] - this.length;
+		};
+		Hand.prototype.setPos = function(curPos){
+			ctx.beginPath();
+			ctx.moveTo(clock.center[0], clock.center[1]);
+			ctx.lineWidth = this.lineWidth;
+			ctx.lineTo(this.curPos[0], this.curPos[1]);
+			ctx.stroke();
+			ctx.closePath();
+		};
+
+		function countNexPos(curPos, theta){  //curPos:[x1,y1],theta:角度值
+			var nexPos = [];
+			nexPos[0] = (curPos[0]-clock.center[0]) * Math.cos(theta / 180 * Math.PI) - (curPos[1] - clock.center[1]) * Math.sin(theta / 180 * Math.PI) +clock.center[0];
+			nexPos[1] = (curPos[0]-clock.center[0]) * Math.sin(theta / 180 * Math.PI) + (curPos[1] - clock.center[1]) * Math.cos(theta / 180 * Math.PI) +clock.center[1];
+			return nexPos;
+		}
+
+		function getNowTime(){
+			var date = new Date();
+			var time = {
+				hour: date.getHours(),
+				minu: date.getMinutes(),
+				sec: date.getSeconds()
+			};
+			return time;
+		}
+
+		function setTime(time, handSec, handMinu, handHour){
+			var thetaSec = time.sec / 60 * 360;
+			var thetaMinu = time.minu / 60 * 360 + thetaSec / 60;
+			var thetaHour = time.hour / 12 * 360 + thetaMinu / 12;
+			handSec.curPos = countNexPos(handSec.curPos, thetaSec);
+			handMinu.curPos = countNexPos(handMinu.curPos, thetaMinu);
+			handHour.curPos = countNexPos(handHour.curPos, thetaHour);
+		}
+
+		
+			clock.setClock();
+			clock.setNumber();
+			var handHour = new Hand(80, 7);
+			var handMinu = new Hand(150, 4);
+			var handSec = new Hand(170, 1);
+			handHour.setOrigin();//将初始坐标指向12时刻
+			handMinu.setOrigin();
+			handSec.setOrigin();
+			var time = getNowTime();
+			setTime(time, handSec, handMinu, handHour);
+			handSec.setPos();
+			handMinu.setPos();
+			handHour.setPos();
+			setInterval(function(){
+				ctx.clearRect(0, 0, drawing.width, drawing.height);
+				clock.setClock();
+				clock.setNumber();
+				handSec.curPos = countNexPos(handSec.curPos, 360/60);
+				handSec.setPos();
+				handMinu.curPos = countNexPos(handMinu.curPos, 360/3600);
+				handMinu.setPos();
+				handHour.curPos = countNexPos(handHour.curPos, 360/3600/12);
+				handHour.setPos();
+			},1000);	
+			$("img").each(function(){
+				this.onerror = function(){alert("er")}
+				if(!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0){
+					console.log("errrerer")
+				}
+			})
+		}
+	</script>
+	<script src="http://preview.fidelity.co.jp/fij/about/history-wall/js/bower_components/requirejs/require.js"></script>
+	<script src="js/my.js"></script>
+	
+	<script>
+		require(["js/my"],function(msg){			
+			//alert(msg);
+		})
+	</script>
+
+<style>
+		.onelineDiv div:nth-child(3){
+			font-size:24px;
+			background: -webkit-radial-gradient(circle, red, yellow, green); /* Safari 5.1 - 6.0 */
+background: -o-radial-gradient(circle, red, yellow, green); /* Opera 11.6 - 12.0 */
+background: -moz-radial-gradient(circle, red, yellow, green); /* Firefox 3.6 - 15 */
+background: radial-gradient(circle, red, yellow, green); /* 标准的语法 */
+			backgroud:radial-gradient(circle,50 50,50,50 1,0,from(black),to(white)) !important;
+		}
+</style>
+<link rel="stylesheet" type="text/css" href="style.scss">
+</head>
+<body>
+	<div id="divContent">
+		<div id="div1" style="font-size:20px;">
+			dasd<span style="font-size:6em">nnnnm</span>
+		</div>
+	</div>
+	<a href="www.baidu.com"" myattr="asd" id="baidu">baidu</a>
+	<input type="text">asd</input>
+	<button id="btn">button</button>	
+	
+	<canvas class="vas aa" id="drawing" width="460" height="460" draggable="true">canvas content</canvas>
+	<!--<script type="text/javascript" src = "https://hunkid.github.io/clock_canvas/js/clock.js"></script>-->
+	
+	<div id="app">
+	  <ol>
+		<li v-for="site in sites">
+		  {{ site.name }}
+		</li>
+	  </ol>
+	  <div id="testDiv" data-test="testData">divvv</div>
+	</div>
+	<div id="app2" aad>
+		{{ site.name }}
+	</div>
+	<span aad>aa</span>
+	<input id="ckb" type="checkbox" data-test="dataTest"/>
+	<script>
+		var app = new Vue({
+		  el: '#app',
+		  data: {
+			sites: [
+			  { name: 'Runoob' },
+			  { name: 'Google' },
+			  { name: 'Taobao' }
+			]
+		  }
+		})
+	</script>
+	<div id="example"></div>
+    <script type="text/babel">
+      function FormattedDate(props) {
+	  return <h2>It is {props.date.toLocaleTimeString()}.</h2>;
+	}
+
+	class Clock extends React.Component {
+	  constructor(props) {
+		super(props);
+		this.state = {date: new Date()};
+	  }
+
+	  componentDidMount() {
+		var that = this
+		this.timerID = setInterval(
+		  function(){return that.tick()},
+		  1000
+		);
+	  }
+
+	  componentWillUnmount() {
+		clearInterval(this.timerID);
+	  }
+
+	  tick() {
+		this.setState({
+		  date: new Date()
+		});
+	  }
+
+	  render() {
+		return (
+		  <div>
+			<h1>Hello, world!</h1>
+			<FormattedDate date={this.state.date} />
+		  </div>
+		);
+	  }
+}
+
+ReactDOM.render(
+  <Clock />,
+  document.getElementById('example')
+);	  	 
+    </script>
+	<div style="display:flex" class="onelineDiv">
+		<div class="dddd" style="width:33%;background:red;border:1px solid black">
+			dasdasd
+		</div>
+		<div style="width:23%;background:red;border:1px solid black;flex:2">
+			sssadadadadasdadadasd
+			asdadasdad
+			asdad
+			asdasdasdasdasdasd
+			asdasdasdasdkasdljlajsda jdlasjd lad 
+			asd asd ads ad asd asd asdjhkasdk hkjahsd 
+			asd hkashdkj hakjshdk haksdh kjhasdkj hkjashdk ad 
+			asd 
+		</div>
+		<div style="width:23%;border:1px solid black;flex:1;">
+			sssadadadadasdadadasd
+			asdadasdad
+			asdad
+			asdasdasdasdasdasd
+			asdasdasdasdkasdljlajsda jdlasjd lad 
+			asd asd ads ad asd asd asdjhkasdk hkjahsd 
+			asd hkashdkj hakjshdk haksdh kjhasdkj hkjashdk ad 
+			asd jlasjd ljlasdl jlasdjl jalsdjl asldj lasjdl a
+			ad a
+			sd asd ahsdk haksjdh a
+			sd asd kahdkh kshdk asd
+			 ajsdkh kashdk hasd
+			  sadfasd
+		</div>
+		
+		<script>
+			function erimg(img){
+				img.src="https://www.fidelity.co.jp/fij/invest_navi/column/images/column02.jpg"
+			}
+		</script>
+	</div>
+</body>
+<script>
+	
+</script>
+</html>
